@@ -231,3 +231,4 @@ function showNotification(message, type = 'info') {
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', initMap);
+

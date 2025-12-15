@@ -283,3 +283,63 @@ def handle_disconnect():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, port=5000)
+
+from geocoding import geocoder
+
+@app.route('/api/geocode/reverse', methods=['GET'])
+def reverse_geocode():
+    """Get place name from coordinates"""
+    try:
+        lat = request.args.get('lat', type=float)
+        lng = request.args.get('lng', type=float)
+        
+        if not lat or not lng:
+            return jsonify({'error': 'Missing coordinates'}), 400
+        
+        result = geocoder.reverse_geocode(lat, lng)
+        
+        return jsonify({
+            'success': True,
+            'location': {
+                'latitude': lat,
+                'longitude': lng
+            },
+            'place_name': result['place_name'],
+            'full_address': result['full_address'],
+            'source': result['source']
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/geocode/forward', methods=['GET'])
+def forward_geocode():
+    """Get coordinates from place name"""
+    try:
+        place_name = request.args.get('place', '')
+        
+        if not place_name:
+            return jsonify({'error': 'Missing place name'}), 400
+        
+        result = geocoder.forward_geocode(place_name)
+        
+        if result:
+            return jsonify({
+                'success': True,
+                'place_name': place_name,
+                'coordinates': result
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'error': 'Location not found'
+            }), 404
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500

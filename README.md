@@ -1,26 +1,5 @@
 
-
-
-
-
-### Project folder structure
-safestree/
-├── backend/
-│   ├── app.py
-│   ├── models.py
-│   ├── predict.py
-│   ├── requirements.txt
-│   └── data/
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   ├── script.js
-│   └── maps.html
-└── README.md
-
-
-
-
+ 
 SafeStree - Know Before You Go 🛡️
 <div align="center">
 https://img.shields.io/badge/SafeStree-Women_Safety_Platform-blueviolet
