@@ -2,15 +2,15 @@
  
 SafeStree - Know Before You Go 🛡️
 <div align="center">
-https://img.shields.io/badge/SafeStree-Women_Safety_Platform-blueviolet
-https://img.shields.io/badge/version-1.0.0-green
-https://img.shields.io/badge/license-MIT-blue
-https://img.shields.io/badge/python-3.8%252B-blue
-https://img.shields.io/badge/flask-2.3.3-lightgrey
+  https://img.shields.io/badge/SafeStree-Women_Safety_Platform-blueviolet
+  https://img.shields.io/badge/version-1.0.0-green
+  https://img.shields.io/badge/license-MIT-blue
+  https://img.shields.io/badge/python-3.8%252B-blue
+  https://img.shields.io/badge/flask-2.3.3-lightgrey
 
-A real-time safety navigation platform for women with predictive analytics and community protection
+    A real-time safety navigation platform for women with predictive analytics and community protection
 
-Demo • Features • Installation • Usage • API Documentation • Team
+    Demo • Features • Installation • Usage • API Documentation • Team
 
 </div>
 📌 Overview
@@ -51,6 +51,11 @@ graph TB
     style B fill:#f3e5f5
     style D fill:#e8f5e8
 
+
+Access the Application
+.Frontend: http://localhost:5500/frontend/maps.html
+.Main html: http://localhost:frontend/index.html 
+
 🚀 Quick Start
 Prerequisites
 Python 3.8+
@@ -72,7 +77,14 @@ pip install -r requirements.txt
 
 # Set up environment variables
 cp .env.example .env
+
 # Edit .env with your configurations
+SECRET_KEY=your-secret-key-here
+MONGODB_URI=mongodb://localhost:27017/safestree
+DEBUG=False
+GOOGLE_MAPS_API_KEY=your-google-maps-key
+TWILIO_ACCOUNT_SID=your-twilio-sid
+TWILIO_AUTH_TOKEN=your-twilio-token
 
 # Run MongoDB (if using local)
 mongod --dbpath ./data/db
@@ -90,14 +102,55 @@ docker-compose up --build
 
 🛠️ Technology Stack
 Backend
-Python 3.8+ - Core programming language
+.Python 3.8+ - Core programming language
+.Flask - Lightweight web framework
+.MongoDB - NoSQL database for scalability
+.TensorFlow - Machine learning for predictions
+.Socket.IO - Real-time communication
+.JWT - Secure authentication
 
-Flask - Lightweight web framework
+🤝 Contributing
+We welcome contributions! Please follow these steps:
+1.Fork the repository
+2.Create a feature branch (git checkout -b feature/AmazingFeature)
+3.Commit changes (git commit -m 'Add AmazingFeature')
+4.Push to branch (git push origin feature/AmazingFeature)
+5.Open a Pull Request
 
-MongoDB - NoSQL database for scalability
+Development Guidelines
+.Follow PEP 8 for Python code
+.Use meaningful commit messages
+.Add tests for new features
+.Update documentation accordingly
 
-TensorFlow - Machine learning for predictions
+👥 Team CodeAlpha
+Member	            Role	             Contribution
+Shivani Prajapati	Lead Developer	       Backend, AI, Architecture
+Sneha Yadav	        Frontend Developer	  UI/UX, Maps, User Experience
 
-Socket.IO - Real-time communication
+🙏 Acknowledgments
+.Inspired by the courage of women navigating unsafe spaces
+.Built with support from the open-source community
+.Special thanks to all beta testers and contributors
+.Icons by Font Awesome, Maps by Leaflet.js
 
-JWT - Secure authentication
+💡 Tips for Users
+<li>
+Always verify location services are enabled
+</li>
+<li>
+Keep emergency contacts updated
+</li>
+<li>
+Participate actively in community verification
+</li>
+<li>
+Share the app with friends and family
+</li>
+<li>
+Provide feedback to help us improve
+</li>
+
+<div align="center">
+Made with ❤️ for a safer tomorrow
+</div>
