@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeStree - Safety Map</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .map-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        
+        .legend {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>SafeStree</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" class="active"><i class="fas fa-map"></i> Safety Map</a>
+                <a href="#"><i class="fas fa-bell"></i> Alerts</a>
+                <a href="#"><i class="fas fa-user"></i> Profile</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="map-header">
+            <h1><i class="fas fa-map-marked-alt"></i> Live Safety Heatmap</h1>
+            <p>Real-time safety information based on community reports</p>
+        </div>
+
+        <div class="map-controls">
+            <button class="control-btn" onclick="locateMe()">
+                <i class="fas fa-location-arrow"></i> Locate Me
+            </button>
+            <button class="control-btn" onclick="refreshHeatmap()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+            <button class="control-btn" onclick="showSafeRoutes()">
+                <i class="fas fa-route"></i> Show Safe Routes
+            </button>
+            <button class="control-btn" onclick="reportHere()">
+                <i class="fas fa-exclamation-circle"></i> Report Incident
+            </button>
+            <select class="control-btn" id="timeFilter" onchange="filterByTime()">
+                <option value="all">All Time</option>
+                <option value="24h">Last 24 Hours</option>
+                <option value="7d">Last 7 Days</option>
+                <option value="30d">Last 30 Days</option>
+            </select>
+        </div>
+
+        <div id="map"></div>
+
+        <div class="legend">
+            <h3><i class="fas fa-key"></i> Safety Legend</h3>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #00ff00;"></div>
+                <span>Safe Zone (80-100)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ffff00;"></div>
+                <span>Moderate (60-80)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ffa500;"></div>
+                <span>Caution (40-60)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff0000;"></div>
+                <span>Danger Zone (0-40)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #ff00ff; border: 2px solid #000;"></div>
+                <span>Emergency SOS</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3 id="activeZones">15</h3>
+                <p>Active Zones Monitored</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3 id="reportsToday">8</h3>
+                <p>Reports Today</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-user-shield"></i>
+                <h3 id="usersNearby">42</h3>
+                <p>Users Nearby</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-route"></i>
+                <h3 id="safeRoutes">156</h3>
+                <p>Safe Routes Generated</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOS Button -->
+    <div class="sos-btn" onclick="window.location.href='index.html#sos'">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>SOS</span>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

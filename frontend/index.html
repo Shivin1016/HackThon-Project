@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafeStree - Know Before You Go</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Emergency SOS Button (Always visible) -->
+    <div class="sos-btn" id="sosBtn">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>SOS</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-shield-alt"></i>
+          <span>SafeStree</span>
+        </div>
+        <div class="nav-links">
+          <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
+          <a href="maps.html"><i class="fas fa-map"></i> Safety Map</a>
+          <a href="#"><i class="fas fa-bell"></i> Alerts</a>
+          <a href="#"><i class="fas fa-user"></i> Profile</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="hero">
+        <h1>Know Before You Go</h1>
+        <p>Real-time safety information and community protection for women</p>
+        <div class="stats">
+          <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3 id="communityCount">2,500+</h3>
+            <p>Community Members</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3 id="safeZones">850+</h3>
+            <p>Safe Zones Mapped</p>
+          </div>
+          <div class="stat-card">
+            <i class="fas fa-check-circle"></i>
+            <h3 id="incidentsReported">1,200+</h3>
+            <p>Incidents Reported</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+        <div class="actions-grid">
+          <div class="action-card" onclick="openReportModal()">
+            <i class="fas fa-exclamation-circle"></i>
+            <h4>Report Incident</h4>
+            <p>Report safety concern</p>
+          </div>
+          <div class="action-card" onclick="checkRouteSafety()">
+            <i class="fas fa-route"></i>
+            <h4>Check Route</h4>
+            <p>Plan safe journey</p>
+          </div>
+          <div class="action-card" onclick="showEmergencyContacts()">
+            <i class="fas fa-phone-alt"></i>
+            <h4>Emergency Contacts</h4>
+            <p>Quick dial numbers</p>
+          </div>
+          <div class="action-card" onclick="openSafetyMap()">
+            <i class="fas fa-map-marked-alt"></i>
+            <h4>Safety Map</h4>
+            <p>View area safety</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Alerts -->
+      <div class="alerts-section">
+        <h2><i class="fas fa-bell"></i> Live Alerts</h2>
+        <div class="alerts-container" id="alertsContainer">
+          <!-- Alerts will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Safety Tips -->
+      <div class="tips-section">
+        <h2><i class="fas fa-lightbulb"></i> Safety Tips</h2>
+        <div class="tips-grid">
+          <div class="tip">
+            <i class="fas fa-share-alt"></i>
+            <h4>Share Location</h4>
+            <p>Always share your live location with trusted contacts</p>
+          </div>
+          <div class="tip">
+            <i class="fas fa-street-view"></i>
+            <h4>Stay Visible</h4>
+            <p>Walk in well-lit areas and avoid isolated shortcuts</p>
+          </div>
+          <div class="tip">
+            <i class="fas fa-users"></i>
+            <h4>Travel in Groups</h4>
+            <p>There's safety in numbers, especially at night</p>
+          </div>
+          <div class="tip">
+            <i class="fas fa-volume-up"></i>
+            <h4>Trust Instincts</h4>
+            <p>If something feels wrong, leave immediately</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Incident Modal -->
+    <div class="modal" id="reportModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>
+          <i class="fas fa-exclamation-triangle"></i> Report Safety Incident
+        </h2>
+        <form id="reportForm">
+          <div class="form-group">
+            <label for="incidentType">Incident Type</label>
+            <select id="incidentType" required>
+              <option value="harassment">Verbal Harassment</option>
+              <option value="stalking">Stalking/Following</option>
+              <option value="theft">Theft/Robbery</option>
+              <option value="assault">Physical Assault</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="severity">Severity Level (1-5)</label>
+            <div class="severity-stars">
+              <i class="far fa-star" onclick="rateSeverity(1)"></i>
+              <i class="far fa-star" onclick="rateSeverity(2)"></i>
+              <i class="far fa-star" onclick="rateSeverity(3)"></i>
+              <i class="far fa-star" onclick="rateSeverity(4)"></i>
+              <i class="far fa-star" onclick="rateSeverity(5)"></i>
+            </div>
+            <input type="hidden" id="severity" value="3" />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              rows="3"
+              placeholder="What happened?"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label>Your Current Location</label>
+            <div class="location-display">
+              <i class="fas fa-map-marker-alt"></i>
+              <span id="currentLocation">Fetching location...</span>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit Report
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SOS Confirmation Modal -->
+    <div class="modal" id="sosModal">
+      <div class="modal-content emergency">
+        <h2><i class="fas fa-exclamation-triangle"></i> EMERGENCY SOS</h2>
+        <p>Are you sure you want to trigger emergency alert?</p>
+        <div class="sos-buttons">
+          <button class="btn-cancel" onclick="cancelSOS()">Cancel</button>
+          <button class="btn-confirm" onclick="confirmSOS()">
+            <i class="fas fa-siren-on"></i> CONFIRM SOS
+          </button>
+        </div>
+        <div class="emergency-contacts" id="emergencyContacts">
+          <!-- Emergency contacts will load here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
